@@ -1,10 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import file.FileBill;
 import register.RegiClient;
 
 public class Main extends JFrame implements ActionListener {
@@ -77,6 +79,7 @@ public class Main extends JFrame implements ActionListener {
 		if (obj == f_exit) {
 			System.exit(0);
 		} else if (obj == f_bill) {
+			new FileBill();
 
 		} else if (obj == l_client) {
 			this.dispose();
