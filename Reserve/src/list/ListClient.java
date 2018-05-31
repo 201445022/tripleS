@@ -1,8 +1,14 @@
 package list;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 
-public class ListClient extends JFrame{
+public class ListClient extends JFrame implements ActionListener{
+	
+	
+	
 	public ListClient()
 	{
 		setTitle("물품 주문 관리");
@@ -11,5 +17,10 @@ public class ListClient extends JFrame{
 		setSize(500, 500);
 		
 		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
