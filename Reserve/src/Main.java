@@ -57,6 +57,9 @@ public class Main extends JFrame implements ActionListener {
 		registerMenu.add(r_client);
 		registerMenu.add(r_item);
 		registerMenu.add(r_orderList);
+		r_client.addActionListener(this);
+		r_item.addActionListener(this);
+		r_orderList.addActionListener(this);
 		// InquiryMenu
 		i_faq = new JMenuItem("FAQ");
 		i_obo = new JMenuItem("1:1문의");
@@ -79,14 +82,14 @@ public class Main extends JFrame implements ActionListener {
 		} else if (obj == f_bill) {
 
 		} else if (obj == l_client) {
-			this.dispose();
-			new RegiClient();
+			
 		} else if (obj == l_item) {
 
 		} else if (obj == l_order) {
 
 		} else if (obj == r_client) {
-
+			//this.dispose();
+			new RegiClient();
 		} else if (obj == r_item) {
 
 		} else if (obj == r_orderList) {
