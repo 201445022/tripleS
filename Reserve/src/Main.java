@@ -1,9 +1,14 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class Main extends JFrame {
+import file.FileBill;
+
+public class Main extends JFrame implements ActionListener{
    
    private JMenuBar mb;
    private JMenu fileMenu, listMenu, registerMenu, inquiryMenu;
@@ -33,6 +38,8 @@ public class Main extends JFrame {
       //File Menu
       f_exit = new JMenuItem("종료");
       f_bill = new JMenuItem("내역서");
+      f_exit.addActionListener(this);
+      f_bill.addActionListener(this);
       fileMenu.add(f_bill);
       fileMenu.add(f_exit);
 
@@ -62,5 +69,52 @@ public class Main extends JFrame {
    public static void main(String[] args) {
       new Main();
    }
+
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	Object obj = e.getSource();
+	
+	if(obj == f_exit)
+	{
+		System.exit(0);
+	}
+	else if (obj == f_bill)
+	{
+		
+	}
+	else if (obj == l_client)
+	{
+		
+	}
+	else if (obj == l_item)
+	{
+		
+	}
+	else if (obj == l_order)
+	{
+		
+	}
+	else if (obj == r_client)
+	{
+		
+	}
+	else if (obj == r_item)
+	{
+		
+	}
+	else if (obj == r_orderList)
+	{
+		
+	}
+	else if (obj == i_faq)
+	{
+		
+	}
+	else if (obj == i_obo)
+	{
+		
+	}
+}
 
 }
