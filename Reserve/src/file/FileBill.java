@@ -44,7 +44,7 @@ public class FileBill extends JFrame implements ActionListener{
 			cbDivision.addItem(cbStr[i]);
 		}
 		
-		
+		//DF
 		// Adding components to p1
 		p1.add(lblDivision);
 		p1.add(cbDivision);
