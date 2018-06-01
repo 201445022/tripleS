@@ -19,7 +19,7 @@ public class ListClient extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

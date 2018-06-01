@@ -22,7 +22,7 @@ public class Main extends JFrame implements ActionListener {
 		// JFrame
 		setTitle("물품 주문 관리");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
 		setSize(500, 500);
 		// JMenuBar
 		mb = new JMenuBar();
