@@ -39,12 +39,10 @@ public class DB_Mgr {
 		return list;
 	}
 	// 거래처 등록
-	public ArrayList<Bean> InsertAccount(String name, String mang, String phone, String fax, String email){
-		ArrayList<Bean> list = new ArrayList<Bean>();
-		Bean bean;
+	public void InsertAccount(String name, String mang, String phone, String fax, String email){
 		Connection con = null;
 		Statement stmt = null;
-		String sql = "insert into account(name, manager, phone, fax, email) values('" + name + "', '" + mang + "', '" + phone + "', '" + fax + "', '" + email + "');";
+		String sql = "insert into account(company, manager, tel, fax, email) values('" + name + "', '" + mang + "', '" + phone + "', '" + fax + "', '" + email + "');";
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
@@ -53,6 +51,5 @@ public class DB_Mgr {
 		} catch (Exception e) {
 			System.out.println(e + " : 오류발생");
 		}
-		return list;
 	}
 }

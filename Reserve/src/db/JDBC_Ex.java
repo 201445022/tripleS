@@ -9,11 +9,8 @@ import java.sql.Statement;
 
 public class JDBC_Ex {
 	private Connection conn = null;
-	public Connection getConnection(){
-		return conn;
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
+	public JDBC_Ex() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("연결 중...");
@@ -33,5 +30,7 @@ public class JDBC_Ex {
 			System.out.println("DB 연동 실패");
 		}
 	}
-
+	public Connection getConnection(){
+		return conn;
+	}
 }

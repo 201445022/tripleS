@@ -23,13 +23,11 @@ public class RegiClient extends JFrame implements ActionListener {
 	private JButton btnCheck_1, btnCheck_2, btnRegister, btnReset;
 	private String item[] = { "사용자입력", "naver.com", "daum.net", "hanmail.com", "hotmail.com", "gmail.com", "nate.com" };
 	private JComboBox cbEmail = new JComboBox<String>(item);
-	private DB_Mgr mgr;
+	private DB_Mgr mgr = new DB_Mgr();
 
 	public RegiClient() {
 		setTitle("거래처 등록");
 		setSize(700, 400);
-		// DataBase
-		mgr = new DB_Mgr();
 		// JLabel
 		lblCompany = new JLabel("상호명");
 		lblManager = new JLabel("담당자");
