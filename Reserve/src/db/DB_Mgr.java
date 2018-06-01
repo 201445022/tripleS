@@ -46,6 +46,14 @@ public class DB_Mgr {
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
+			
+			sql = "CREATE TABLE item ( " +
+			"No NUMBER PRIMARY KEY," + 
+			"Num VARCHAR2(6)," +
+			"Name VARCHAR2(10)," + 
+			"item_Size VARCHAR2(10)," +
+			"UnitPrice NUMBER)"; 
+
 			stmt.executeUpdate(sql);
 			System.out.println("성공");
 		} catch (Exception e) {
