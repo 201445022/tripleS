@@ -7,9 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import db.JDBC_Ex;
+import db.DB_Mgr;
 import utility.JTextFieldLimit;
 
 public class RegiClient extends JFrame implements ActionListener {
@@ -22,13 +23,13 @@ public class RegiClient extends JFrame implements ActionListener {
 	private JButton btnCheck_1, btnCheck_2, btnRegister, btnReset;
 	private String item[] = { "사용자입력", "naver.com", "daum.net", "hanmail.com", "hotmail.com", "gmail.com", "nate.com" };
 	private JComboBox cbEmail = new JComboBox<String>(item);
-	private JDBC_Ex db;
+	private DB_Mgr mgr;
+
 	public RegiClient() {
 		setTitle("거래처 등록");
 		setSize(700, 400);
 		// DataBase
-		db = new JDBC_Ex();
-
+		mgr = new DB_Mgr();
 		// JLabel
 		lblCompany = new JLabel("상호명");
 		lblManager = new JLabel("담당자");
@@ -132,9 +133,10 @@ public class RegiClient extends JFrame implements ActionListener {
 		// Visible
 		setVisible(true);
 	}
+
 	/*
 	 * 버튼 클릭시 발생되는 이벤트
-	 * */
+	 */
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btnCheck_1) {
@@ -142,14 +144,49 @@ public class RegiClient extends JFrame implements ActionListener {
 		} else if (obj == btnCheck_2) {
 
 		} else if (obj == btnRegister) {
-
+			if (tfCheck()) {
+				String company = tfCompany.getText().toString().trim();
+				String manager = tfManager.getText().toString().trim();
+				String phone = tfTel_1.getText().toString().trim() + "-" + tfTel_2.getText().toString().trim() + "-"
+						+ tfTel_3.getText().toString().trim();
+				String fax = tfFax_1.getText().toString().trim() + "-" + tfFax_2.getText().toString().trim() + "-"
+						+ tfFax_3.getText().toString().trim();
+				String email = tfEmail_1.getText().toString().trim() + "@" + tfEmail_2.getText().toString().trim();
+				System.out.println(company + " , " + manager + " , " + phone + " , " + fax + " , " + email);
+				mgr.InsertAccount(company, manager, phone, fax, email);
+			}
 		} else if (obj == btnReset) {
 			tfClear(); // 입력 창 비워주기
 		}
 	}
+
+	/*
+	 * 입력이 되었는지 확인
+	 */
+	public boolean tfCheck() {
+		if (tfCompany.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "상호명을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else if (tfManager.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "담당자를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else if (tfTel_1.getText().equals("") || tfTel_2.getText().equals("") || tfTel_3.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "연락처를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else if (tfFax_1.getText().equals("") || tfFax_2.getText().equals("") || tfFax_3.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "팩스를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else if (tfEmail_1.getText().equals("") || tfEmail_2.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "이메일을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	/*
 	 * 입력 창 비워주기
-	 * */
+	 */
 	public void tfClear() {
 		tfCompany.setText("");
 		tfManager.setText("");
@@ -161,5 +198,6 @@ public class RegiClient extends JFrame implements ActionListener {
 		tfFax_3.setText("");
 		tfEmail_1.setText("");
 		tfEmail_2.setText("");
+		cbEmail.setSelectedIndex(0);
 	}
 }

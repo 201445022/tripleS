@@ -1,33 +1,27 @@
 package db;
 
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JOptionPane;
-
 public class JDBC_Ex {
-
+	private Connection conn = null;
+	public Connection getConnection(){
+		return conn;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("연결 중...");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "temp","1234");
+			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "TEMP","1234");
 			
 			Statement stmt = conn.createStatement();
 			String sql = "select * from TB";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next())
-			{
-				String id = rs.getString(1);
-				String name = rs.getString("name");
-				System.out.println(id + "\t" + name);
-			}
-					
+
 			System.out.println("DB연동 성공");
 		
 		} catch (ClassNotFoundException e) {
