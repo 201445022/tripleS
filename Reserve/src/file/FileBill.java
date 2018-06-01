@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +28,7 @@ public class FileBill extends JFrame implements ActionListener{
 	private String[] title = {"번호", "이름","휴대폰"};
 	private JTable table;
 	private JScrollPane scroll;
+	
 	
 	public FileBill()
 	{
@@ -56,6 +58,8 @@ public class FileBill extends JFrame implements ActionListener{
 		// Initialization Buttons
 		btnSearch = new JButton("검색");
 		btnReset = new JButton("초기화");
+		btnSearch.addActionListener(this);
+		btnReset.addActionListener(this);
 		
 		// initialization combo boxes
 		
@@ -68,6 +72,10 @@ public class FileBill extends JFrame implements ActionListener{
 		{
 			cbContent.addItem(cbStr2[i]);
 		}
+		
+		// To initialize combo boxes to be empty
+		cbDivision.setSelectedIndex(-1);
+		cbContent.setSelectedIndex(-1);
 		
 		// Adding components to p1
 		p1.add(lblDivision);
@@ -83,9 +91,22 @@ public class FileBill extends JFrame implements ActionListener{
 		
 		setVisible(true);
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		Object obj = e.getSource();
 		
+		if(obj == btnReset)
+		{
+			cbContent.setSelectedItem(null);
+			cbDivision.setSelectedItem(null);
+		}
+		else if(obj == btnSearch)
+		{
+			if(cbContent.getSelectedIndex() == -1 && cbDivision.getSelectedIndex() == -1)
+			{
+				JOptionPane.showMessageDialog(null, "검색 조건을 입력하세요 미친놈아.", "Error이다 새끼야", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 }
