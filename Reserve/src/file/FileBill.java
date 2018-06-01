@@ -12,6 +12,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class FileBill extends JFrame implements ActionListener{
 	
@@ -19,32 +21,54 @@ public class FileBill extends JFrame implements ActionListener{
 	private JLabel lblDivision, lblContent;
 	private JComboBox<String> cbDivision, cbContent;
 	private JButton btnSearch, btnReset;
-	private String[] cbStr = {"거래서", "품목", "발주 리스트"};
+	private String[] cbStr1 = {"거래서", "품목", "발주 리스트"};
+	private String[] cbStr2 = {"추가", "수정", "삭제"};
+	private String[][] data = {{"1", "정지현", "010-6679-3306"}};
+	private String[] title = {"번호", "이름","휴대폰"};
+	private JTable table;
+	private JScrollPane scroll;
 	
 	public FileBill()
 	{
 		setTitle("물품 주문 관리");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setLocationRelativeTo(null);
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setSize(500, 500);
 		
-		// Initialization panels, labels and buttons
+		// Initialization panels
 		p1 = new JPanel(new FlowLayout(FlowLayout.CENTER,5,10));
+		
+		// Initialization a table and scroll pane
+		table = new JTable(data, title);
+		scroll = new JScrollPane(table);
+		table.getColumnModel().getColumn(0).setPreferredWidth(50);
+		table.getColumnModel().getColumn(1).setPreferredWidth(70);
+		table.getColumnModel().getColumn(2).setPreferredWidth(120);
+		
+		// Initialization labels
 		lblDivision = new JLabel("구분");
 		lblContent = new JLabel("내용");
-		cbDivision = new JComboBox();
-		cbContent = new JComboBox();
+		
+		// Initialization Combo boxes
+		cbDivision = new JComboBox<String>();
+		cbContent = new JComboBox<String>();
+		
+		// Initialization Buttons
 		btnSearch = new JButton("검색");
 		btnReset = new JButton("초기화");
 		
-		// initialization combo box
+		// initialization combo boxes
 		
-		for(int i = 0 ; i < cbStr.length ; i++)
+		for(int i = 0 ; i < cbStr1.length ; i++)
 		{
-			cbDivision.addItem(cbStr[i]);
+			cbDivision.addItem(cbStr1[i]);
 		}
 		
-		//DF
+		for(int i = 0 ; i < cbStr2.length ; i++)
+		{
+			cbContent.addItem(cbStr2[i]);
+		}
+		
 		// Adding components to p1
 		p1.add(lblDivision);
 		p1.add(cbDivision);
@@ -52,6 +76,7 @@ public class FileBill extends JFrame implements ActionListener{
 		p1.add(cbContent);
 		p1.add(btnSearch);
 		p1.add(btnReset);
+		p1.add(scroll);
 		
 		// JPanel 1
 		add(p1);
