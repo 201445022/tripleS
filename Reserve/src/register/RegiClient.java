@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import db.JDBC_Ex;
 import utility.JTextFieldLimit;
 
 public class RegiClient extends JFrame implements ActionListener {
@@ -21,13 +22,12 @@ public class RegiClient extends JFrame implements ActionListener {
 	private JButton btnCheck_1, btnCheck_2, btnRegister, btnReset;
 	private String item[] = { "사용자입력", "naver.com", "daum.net", "hanmail.com", "hotmail.com", "gmail.com", "nate.com" };
 	private JComboBox cbEmail = new JComboBox<String>(item);
-
-	// JDBC_Ex db = new JDBC_Ex();
+	private JDBC_Ex db;
 	public RegiClient() {
 		setTitle("거래처 등록");
 		setSize(700, 400);
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setLocationRelativeTo(null);
+		// DataBase
+		db = new JDBC_Ex();
 
 		// JLabel
 		lblCompany = new JLabel("상호명");
@@ -132,7 +132,9 @@ public class RegiClient extends JFrame implements ActionListener {
 		// Visible
 		setVisible(true);
 	}
-
+	/*
+	 * 버튼 클릭시 발생되는 이벤트
+	 * */
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btnCheck_1) {
@@ -145,7 +147,9 @@ public class RegiClient extends JFrame implements ActionListener {
 			tfClear(); // 입력 창 비워주기
 		}
 	}
-
+	/*
+	 * 입력 창 비워주기
+	 * */
 	public void tfClear() {
 		tfCompany.setText("");
 		tfManager.setText("");

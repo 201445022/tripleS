@@ -16,20 +16,11 @@ public class JDBC_Ex {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("연결 중...");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "temp_a","1234");
+			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "temp","1234");
 			
 			Statement stmt = conn.createStatement();
-			
-			// ������ �Է�
-//			String insert = "insert into TB values('444', '�ƹ���', '�а�')";
-			String delete = "delete from TB where id = '444'";
-			stmt.executeUpdate(delete);			
-			// ��� Ȯ��
-//			String nm = JOptionPane.showInputDialog("�˻��� �̸��� �Է��ϼ���.");
 			String sql = "select * from TB";
-			
 			ResultSet rs = stmt.executeQuery(sql);
-			
 			while(rs.next())
 			{
 				String id = rs.getString(1);
