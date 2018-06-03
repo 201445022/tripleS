@@ -14,7 +14,7 @@ public class JDBC_Ex {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("연결 중...");
-			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "temp","1234");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "temp","1234");
 			
 			System.out.println("DB연동 성공");
 		

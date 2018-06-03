@@ -25,7 +25,7 @@ public class DB_Mgr {
 		String sql = "SELECT * FROM Account";
 		try {
 			con = conn.getConnection();
-			stmt = con.createStatement();
+			stmt = con.createStatement(); // 이부분이문제
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				bean = new Bean();
