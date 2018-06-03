@@ -36,15 +36,15 @@ public class DB_Mgr {
 			rs = stmt.executeQuery("SELECT count(*) AS COUNT FROM tabs WHERE TABLE_NAME = 'ORDERLIST'");
 			rs.next();
 			if (rs.getInt("COUNT") == 0) { // OrderList 테이블이 존재하지 않으면 테이블 생성
-				String query = "CREATE TABLE Orderlist (order_Date DATE, Name VARCHAR2(10),"
-						+ "Inum VARCHAR2(6), Quantity NUMBER, Delivery VERCHAR2(20))";
+				String query = "CREATE TABLE ORDERLIST (order_Date DATE, Name VARCHAR2(10),"
+						+ "Inum VARCHAR2(6), Quantity NUMBER, Delivery VARCHAR2(20))";
 				stmt.execute(query);
 			}
 			// Item 테이블이 존재하는지 유무 확인
 			rs = stmt.executeQuery("SELECT count(*) AS COUNT FROM tabs WHERE TABLE_NAME = 'ITEM'");
 			rs.next();
 			if (rs.getInt("COUNT") == 0) { // Item 테이블이 존재하지 않으면 테이블 생성
-				String query = "CREATE TABLE Item (Num VARCHAR2(6), Name VARCHAR2(10),"
+				String query = "CREATE TABLE ITEM (Num VARCHAR2(6), Name VARCHAR2(10),"
 						+ "item_Size VARCHAR2(10), UnitPrice NUMBER)";
 				stmt.execute(query);
 			}
