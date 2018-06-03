@@ -131,7 +131,7 @@ public class DB_Mgr {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		int cnt = 1; // cnt가 1이면 중복 0 이면 중복x
+		int cnt = 1; // cnt가 1이면 중복
 		String sql = "SELECT COUNT(*) AS COUNT FROM ACCOUNT WHERE " + column + "='" + name + "'";
 		try {
 			con = conn.getConnection();
