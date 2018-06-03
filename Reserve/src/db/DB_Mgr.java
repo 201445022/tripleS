@@ -55,11 +55,11 @@ public class DB_Mgr {
 	}
 
 	// 거래처 등록
-	public void InsertAccount(String name, String mang, String phone, String fax, String email) {
+	public void InsertAccount(String company, String manager, String tel, String fax, String email) {
 		Connection con = null;
 		Statement stmt = null;
-		String sql = "insert into account(company, manager, tel, fax, email) values('" + name + "', '" + mang + "', '"
-				+ phone + "', '" + fax + "', '" + email + "');";
+		String sql = "INSERT INTO Account(company, manager, tel, fax, email) VALUES('" + company + "', '" + manager + "', '"
+				+ tel + "', '" + fax + "', '" + email + "')";
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
