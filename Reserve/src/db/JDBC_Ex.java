@@ -29,6 +29,15 @@ public class JDBC_Ex {
 		{
 			System.out.println("DB 연동 실패");
 		}
+		finally {
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	public Connection getConnection(){
 		return conn;

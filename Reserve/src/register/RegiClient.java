@@ -50,7 +50,7 @@ public class RegiClient extends JFrame implements ActionListener {
 		lblHyphen_3 = new JLabel("-");
 		lblHyphen_4 = new JLabel("-");
 		lblAt = new JLabel("@");
-		// JTextField , JTextFieldLimit 입력길이 제한 
+		// JTextField , JTextFieldLimit 입력길이 제한
 		tfCompany = new JTextField();
 		tfCompany.setDocument((new JTextFieldLimit(10)));
 		tfManager = new JTextField();
@@ -146,14 +146,16 @@ public class RegiClient extends JFrame implements ActionListener {
 		this.add(btnReset); // 리셋 버튼
 		btnReset.setBounds(335, 220, 80, 20);
 
-		// 상호명과 이메일 내용이 바뀌면 다시 중복확인 하기 위해서 사용되는 이벤트 
+		// 상호명과 이메일 내용이 바뀌면 다시 중복확인 하기 위해서 사용되는 이벤트
 		tfCompany.getDocument().addDocumentListener(new DocumentListener() {
 			public void removeUpdate(DocumentEvent e) {
 				flag_1 = 0;
 			}
+
 			public void insertUpdate(DocumentEvent e) {
 				flag_1 = 0;
 			}
+
 			public void changedUpdate(DocumentEvent e) {
 				flag_1 = 0;
 			}
@@ -162,9 +164,11 @@ public class RegiClient extends JFrame implements ActionListener {
 			public void removeUpdate(DocumentEvent e) {
 				flag_2 = 0;
 			}
+
 			public void insertUpdate(DocumentEvent e) {
 				flag_2 = 0;
 			}
+
 			public void changedUpdate(DocumentEvent e) {
 				flag_2 = 0;
 			}
@@ -173,9 +177,11 @@ public class RegiClient extends JFrame implements ActionListener {
 			public void removeUpdate(DocumentEvent e) {
 				flag_2 = 0;
 			}
+
 			public void insertUpdate(DocumentEvent e) {
 				flag_2 = 0;
 			}
+
 			public void changedUpdate(DocumentEvent e) {
 				flag_2 = 0;
 			}
@@ -213,7 +219,7 @@ public class RegiClient extends JFrame implements ActionListener {
 				String fax = tfFax_1.getText().toString().trim() + "-" + tfFax_2.getText().toString().trim() + "-"
 						+ tfFax_3.getText().toString().trim();
 				String email = tfEmail_1.getText().toString().trim() + "@" + tfEmail_2.getText().toString().trim();
-				System.out.println(company + " , " + manager + " , " + phone + " , " + fax + " , " + email);
+				System.out.println(company + ", " + manager + ", " + phone + ", " + fax + ", " + email);
 				mgr.InsertAccount(company, manager, phone, fax, email);
 			}
 		} else if (obj == btnReset) {
@@ -233,7 +239,7 @@ public class RegiClient extends JFrame implements ActionListener {
 	 * 입력이 되었는지 확인
 	 */
 	public boolean tfCheck() {
-		if (flag_1 == 0) { // 중복확인이 있기 때문에 db연동하고 수정해야함.
+		if (flag_1 == 0) {
 			JOptionPane.showMessageDialog(null, "상호명 중복확인 해주세요", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else if (tfManager.getText().equals("")) {
@@ -249,8 +255,10 @@ public class RegiClient extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "이메일 중복확인 해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
-			String strTel = tfTel_1.getText() + tfTel_2.getText() + tfTel_3.getText();
-			String strFax = tfFax_1.getText() + tfFax_2.getText() + tfFax_3.getText();
+			String strTel = tfTel_1.getText().toString().trim() + tfTel_2.getText().toString().trim()
+					+ tfTel_3.getText().toString().trim();
+			String strFax = tfFax_1.getText().toString().trim() + tfFax_2.getText().toString().trim()
+					+ tfFax_3.getText().toString().trim();
 			// 연락처와 팩스는 숫자로만 입력받아야 하기 때문에 확인
 			for (char c : strTel.toCharArray()) {
 				if (!Character.isDigit(c)) { // -true 연락처가 숫자가 아닐경우
