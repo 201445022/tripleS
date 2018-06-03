@@ -101,7 +101,7 @@ public class DB_Mgr {
 	}
 
 	// 거래처 등록
-	public void InsertAccount(String company, String manager, String tel, String fax, String email) {
+	public void insertAccount(String company, String manager, String tel, String fax, String email) {
 		Connection con = null;
 		Statement stmt = null;
 		String sql = "INSERT INTO Account(company, manager, tel, fax, email) VALUES('" + company + "', '" + manager
@@ -125,22 +125,22 @@ public class DB_Mgr {
 			}
 		}
 	}
-	
-	// 상호명 중복 확인
-	public int getCompany(String company) {
+
+	// 상호명과 이메일 중복 확인
+	public int countCheck(String column, String name) {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		int cnt = 1; // cnt가 1이면 중복 0 이면 중복x
-		String sql = "SELECT COUNT(*) AS COUNT FROM ACCOUNT WHERE COMPANY = '+company+'";
+		String sql = "SELECT COUNT(*) AS COUNT FROM ACCOUNT WHERE " + column + "='" + name + "'";
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			rs.next();
 			cnt = rs.getInt("COUNT");
-		}catch(Exception e) {
-			
+		} catch (Exception e) {
+
 		} finally {
 			try {
 				rs.close();
@@ -150,6 +150,6 @@ public class DB_Mgr {
 				e.printStackTrace();
 			}
 		}
-		return cnt; 
+		return cnt;
 	}
 }

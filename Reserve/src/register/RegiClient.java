@@ -200,7 +200,7 @@ public class RegiClient extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "상호명을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 			else {
 				mgr = new DB_Mgr();
-				int cnt = mgr.getCompany(tfCompany.getText());
+				int cnt = mgr.countCheck("company",tfCompany.getText()); // 상호명 중복체크
 				if(cnt == 0) {
 					JOptionPane.showMessageDialog(null, "가능한 상호명 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
 					flag_1 = 1;	
@@ -212,8 +212,15 @@ public class RegiClient extends JFrame implements ActionListener {
 			if (tfEmail_1.getText().equals("") || tfEmail_2.getText().equals(""))
 				JOptionPane.showMessageDialog(null, "이메일을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 			else {
-				// 중복확인 하는 코드 작성할 것
-				flag_2 = 1;
+				mgr = new DB_Mgr();
+				String email = tfEmail_1.getText().toString().trim() + "@" + tfEmail_2.getText().toString().trim();
+				int cnt = mgr.countCheck("email", email);
+				if(cnt == 0) {
+					JOptionPane.showMessageDialog(null, "가능한 이메일 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+					flag_2 = 1;	
+				}
+				else
+					JOptionPane.showMessageDialog(null, "중복입니다.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (obj == btnRegister) { // 등록
 			if (tfCheck()) {
@@ -226,7 +233,7 @@ public class RegiClient extends JFrame implements ActionListener {
 						+ tfFax_3.getText().toString().trim();
 				String email = tfEmail_1.getText().toString().trim() + "@" + tfEmail_2.getText().toString().trim();
 				System.out.println(company + ", " + manager + ", " + phone + ", " + fax + ", " + email);
-				mgr.InsertAccount(company, manager, phone, fax, email);
+				mgr.insertAccount(company, manager, phone, fax, email);
 			}
 		} else if (obj == btnReset) {
 			Clear(); // 입력 창 비워주기
