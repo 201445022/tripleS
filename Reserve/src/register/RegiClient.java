@@ -199,8 +199,14 @@ public class RegiClient extends JFrame implements ActionListener {
 			if (tfCompany.getText().equals(""))
 				JOptionPane.showMessageDialog(null, "상호명을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 			else {
-				// 중복확인 하는 코드 작성할 것
-				flag_1 = 1;
+				mgr = new DB_Mgr();
+				int cnt = mgr.getCompany(tfCompany.getText());
+				if(cnt == 0) {
+					JOptionPane.showMessageDialog(null, "가능한 상호명 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+					flag_1 = 1;	
+				}
+				else
+					JOptionPane.showMessageDialog(null, "중복입니다.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		} else if (obj == btnCheck_2) { // 이메일 중복확인
 			if (tfEmail_1.getText().equals("") || tfEmail_2.getText().equals(""))

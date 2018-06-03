@@ -24,7 +24,7 @@ public class DB_Mgr {
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
-			// account 테이블이 존재하는지 유무 확인
+			// Account 테이블이 존재하는지 유무 확인
 			rs = stmt.executeQuery("SELECT count(*) AS COUNT FROM tabs WHERE TABLE_NAME = 'ACCOUNT'");
 			rs.next();
 			if (rs.getInt("COUNT") == 0) { // Account 테이블이 존재하지 않으면 테이블 생성
@@ -32,6 +32,7 @@ public class DB_Mgr {
 						+ "tel VARCHAR2(13), fax VARCHAR2(13), email VARCHAR2(30))";
 				stmt.execute(query);
 			}
+			// OrderList 테이블이 존재하는지 유무 확인
 			rs = stmt.executeQuery("SELECT count(*) AS COUNT FROM tabs WHERE TABLE_NAME = 'ORDERLIST'");
 			rs.next();
 			if (rs.getInt("COUNT") == 0) { // OrderList 테이블이 존재하지 않으면 테이블 생성
@@ -39,6 +40,7 @@ public class DB_Mgr {
 						+ "Inum VARCHAR2(6), Quantity NUMBER, Delivery VERCHAR2(20))";
 				stmt.execute(query);
 			}
+			// Item 테이블이 존재하는지 유무 확인
 			rs = stmt.executeQuery("SELECT count(*) AS COUNT FROM tabs WHERE TABLE_NAME = 'ITEM'");
 			rs.next();
 			if (rs.getInt("COUNT") == 0) { // Item 테이블이 존재하지 않으면 테이블 생성
@@ -122,5 +124,32 @@ public class DB_Mgr {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	// 상호명 중복 확인
+	public int getCompany(String company) {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		int cnt = 1; // cnt가 1이면 중복 0 이면 중복x
+		String sql = "SELECT COUNT(*) AS COUNT FROM ACCOUNT WHERE COMPANY = '+company+'";
+		try {
+			con = conn.getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			cnt = rs.getInt("COUNT");
+		}catch(Exception e) {
+			
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cnt; 
 	}
 }
