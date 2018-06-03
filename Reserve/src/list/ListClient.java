@@ -27,6 +27,9 @@ public class ListClient extends JFrame implements ActionListener{
 			"FAX", "E-MAIL"
 	};
 	
+	private String[][] row = {{"1", "Commasf", "Manager", "telet",
+			"fasfas", "sad@afns.com"}};
+	
 	
 	public ListClient()
 	{
@@ -56,15 +59,15 @@ public class ListClient extends JFrame implements ActionListener{
 		lblCompany = new JLabel("상호명");
 		
 		// Text Field Initialization
-		tfCompany = new JTextField();
-		tfManager = new JTextField();
+		tfCompany = new JTextField(10);
+		tfManager = new JTextField(10);
 		
 		// Button Initialization
 		btnSearch = new JButton("검색");
 		btnDelete = new JButton("삭제");
 		
 		// Table and Scroll Initialization
-		table = new JTable(null, col);
+		table = new JTable(row, col);
 		scroll = new JScrollPane(table);
 		
 		// Adding components to panel
@@ -74,7 +77,7 @@ public class ListClient extends JFrame implements ActionListener{
 		p1.add(tfManager);
 		p1.add(btnSearch);
 		p1.add(btnDelete);
-		p1.add(table);
+		p1.add(scroll);
 		
 		// Adding panel to Frame
 		add(p1);

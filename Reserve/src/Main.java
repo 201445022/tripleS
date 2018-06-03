@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import db.DB_Mgr;
 import file.FileBill;
 import list.ListClient;
+import list.ListOrder;
 import register.RegiClient;
 import register.RegiItem;
 import register.RegiOrder;
@@ -100,6 +101,7 @@ public class Main extends JFrame implements ActionListener {
 		} else if (obj == l_item) {
 
 		} else if (obj == l_order) {
+			new ListOrder();
 
 		} else if (obj == r_client) {
 			// this.dispose();
