@@ -9,7 +9,6 @@ import javax.swing.text.PlainDocument;
  *  [ 사용법 ]
  *   TextField text = new JTextField();
  *   text.setDocument((new JTextFieldLimit(10))); - 10자 제한
- *
  */
 public class JTextFieldLimit extends PlainDocument {
 	private int limit;
@@ -20,7 +19,7 @@ public class JTextFieldLimit extends PlainDocument {
 		this.limit = limit;
 	}
 
-	public JTextFieldLimit(int limit, boolean upper) {
+	public JTextFieldLimit(int limit, boolean upper) { // 소문자 -> 대문자로 변환(대문자로만 입력받고 싶을 때)
 		super();
 		this.limit = limit;
 		this.toUppercase = upper;

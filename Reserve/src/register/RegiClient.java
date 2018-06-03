@@ -9,21 +9,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import db.DB_Mgr;
 import utility.JTextFieldLimit;
 
+/*
+ * 2018-06-03 조천우
+ * DB연동, 중복확인 기능 넣어야 함!!!
+ * */
 public class RegiClient extends JFrame implements ActionListener {
+	// Label
 	private JLabel lblCompany, lblManager, lblTel, lblFax, lblEmail;
 	private JLabel lblHyphen_1, lblHyphen_2, lblHyphen_3, lblHyphen_4, lblAt;
+	// TextField
 	private JTextField tfCompany, tfManager;
 	private JTextField tfTel_1, tfTel_2, tfTel_3;
 	private JTextField tfFax_1, tfFax_2, tfFax_3;
 	private JTextField tfEmail_1, tfEmail_2;
+	// Button
 	private JButton btnCheck_1, btnCheck_2, btnRegister, btnReset;
+	// ComboBox
 	private String item[] = { "사용자입력", "naver.com", "daum.net", "hanmail.com", "hotmail.com", "gmail.com", "nate.com" };
 	private JComboBox cbEmail = new JComboBox<String>(item);
-	private DB_Mgr mgr = new DB_Mgr();
+	private DB_Mgr mgr; // DB
+	private int flag_1, flag_2 = 0; // 중복확인
 
 	public RegiClient() {
 		setTitle("거래처 등록");
@@ -39,7 +50,7 @@ public class RegiClient extends JFrame implements ActionListener {
 		lblHyphen_3 = new JLabel("-");
 		lblHyphen_4 = new JLabel("-");
 		lblAt = new JLabel("@");
-		// JTextField
+		// JTextField , JTextFieldLimit 입력길이 제한 
 		tfCompany = new JTextField();
 		tfCompany.setDocument((new JTextFieldLimit(10)));
 		tfManager = new JTextField();
@@ -71,6 +82,7 @@ public class RegiClient extends JFrame implements ActionListener {
 		btnReset.addActionListener(this);
 
 		// Layout
+		// Label
 		this.setLayout(null);
 		this.add(lblCompany);
 		lblCompany.setBounds(100, 50, 100, 20);
@@ -83,14 +95,17 @@ public class RegiClient extends JFrame implements ActionListener {
 		this.add(lblEmail);
 		lblEmail.setBounds(100, 170, 100, 20);
 
+		// 상호명
 		this.add(tfCompany);
 		tfCompany.setBounds(170, 50, 100, 20);
 		this.add(btnCheck_1);
 		btnCheck_1.setBounds(275, 50, 90, 20);
 
+		// 담당자
 		this.add(tfManager);
 		tfManager.setBounds(170, 80, 100, 20);
 
+		// 연락처
 		this.add(tfTel_1);
 		tfTel_1.setBounds(170, 110, 70, 20);
 		this.add(lblHyphen_1);
@@ -102,6 +117,7 @@ public class RegiClient extends JFrame implements ActionListener {
 		this.add(tfTel_3);
 		tfTel_3.setBounds(360, 110, 70, 20);
 
+		// 팩스
 		this.add(tfFax_1);
 		tfFax_1.setBounds(170, 140, 70, 20);
 		this.add(lblHyphen_3);
@@ -113,21 +129,57 @@ public class RegiClient extends JFrame implements ActionListener {
 		this.add(tfFax_3);
 		tfFax_3.setBounds(360, 140, 70, 20);
 
+		// 이메일
 		this.add(tfEmail_1);
 		tfEmail_1.setBounds(170, 170, 100, 20);
-		this.add(lblAt);
+		this.add(lblAt); // '@'
 		lblAt.setBounds(280, 170, 20, 20);
 		this.add(tfEmail_2);
 		tfEmail_2.setBounds(300, 170, 100, 20);
 		this.add(cbEmail);
+		cbEmail.addActionListener(this);
 		cbEmail.setBounds(405, 170, 100, 20);
-		this.add(btnCheck_2);
+		this.add(btnCheck_2); // 중복확인 버튼
 		btnCheck_2.setBounds(515, 170, 90, 20);
-		this.add(btnRegister);
+		this.add(btnRegister); // 등록 버튼
 		btnRegister.setBounds(270, 220, 60, 20);
-		this.add(btnReset);
+		this.add(btnReset); // 리셋 버튼
 		btnReset.setBounds(335, 220, 80, 20);
 
+		// 상호명과 이메일 내용이 바뀌면 다시 중복확인 하기 위해서 사용되는 이벤트 
+		tfCompany.getDocument().addDocumentListener(new DocumentListener() {
+			public void removeUpdate(DocumentEvent e) {
+				flag_1 = 0;
+			}
+			public void insertUpdate(DocumentEvent e) {
+				flag_1 = 0;
+			}
+			public void changedUpdate(DocumentEvent e) {
+				flag_1 = 0;
+			}
+		});
+		tfEmail_1.getDocument().addDocumentListener(new DocumentListener() {
+			public void removeUpdate(DocumentEvent e) {
+				flag_2 = 0;
+			}
+			public void insertUpdate(DocumentEvent e) {
+				flag_2 = 0;
+			}
+			public void changedUpdate(DocumentEvent e) {
+				flag_2 = 0;
+			}
+		});
+		tfEmail_2.getDocument().addDocumentListener(new DocumentListener() {
+			public void removeUpdate(DocumentEvent e) {
+				flag_2 = 0;
+			}
+			public void insertUpdate(DocumentEvent e) {
+				flag_2 = 0;
+			}
+			public void changedUpdate(DocumentEvent e) {
+				flag_2 = 0;
+			}
+		});
 		// Visible
 		setVisible(true);
 	}
@@ -137,12 +189,23 @@ public class RegiClient extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if (obj == btnCheck_1) {
-
-		} else if (obj == btnCheck_2) {
-
-		} else if (obj == btnRegister) {
+		if (obj == btnCheck_1) { // 상호명 중복확인
+			if (tfCompany.getText().equals(""))
+				JOptionPane.showMessageDialog(null, "상호명을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			else {
+				// 중복확인 하는 코드 작성할 것
+				flag_1 = 1;
+			}
+		} else if (obj == btnCheck_2) { // 이메일 중복확인
+			if (tfEmail_1.getText().equals("") || tfEmail_2.getText().equals(""))
+				JOptionPane.showMessageDialog(null, "이메일을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+			else {
+				// 중복확인 하는 코드 작성할 것
+				flag_2 = 1;
+			}
+		} else if (obj == btnRegister) { // 등록
 			if (tfCheck()) {
+				mgr = new DB_Mgr();
 				String company = tfCompany.getText().toString().trim();
 				String manager = tfManager.getText().toString().trim();
 				String phone = tfTel_1.getText().toString().trim() + "-" + tfTel_2.getText().toString().trim() + "-"
@@ -154,7 +217,15 @@ public class RegiClient extends JFrame implements ActionListener {
 				mgr.InsertAccount(company, manager, phone, fax, email);
 			}
 		} else if (obj == btnReset) {
-			tfClear(); // 입력 창 비워주기
+			Clear(); // 입력 창 비워주기
+		} else {
+			if (cbEmail.getSelectedItem().equals("사용자입력")) {
+				tfEmail_2.setText("");
+				tfEmail_2.setEditable(true);
+			} else {
+				tfEmail_2.setText(cbEmail.getSelectedItem() + "");
+				tfEmail_2.setEditable(false);
+			}
 		}
 	}
 
@@ -162,8 +233,8 @@ public class RegiClient extends JFrame implements ActionListener {
 	 * 입력이 되었는지 확인
 	 */
 	public boolean tfCheck() {
-		if (tfCompany.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "상호명을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+		if (flag_1 == 0) { // 중복확인이 있기 때문에 db연동하고 수정해야함.
+			JOptionPane.showMessageDialog(null, "상호명 중복확인 해주세요", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else if (tfManager.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "담당자를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -174,10 +245,26 @@ public class RegiClient extends JFrame implements ActionListener {
 		} else if (tfFax_1.getText().equals("") || tfFax_2.getText().equals("") || tfFax_3.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "팩스를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
-		} else if (tfEmail_1.getText().equals("") || tfEmail_2.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "이메일을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+		} else if (flag_2 == 0) {
+			JOptionPane.showMessageDialog(null, "이메일 중복확인 해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} else {
+			String strTel = tfTel_1.getText() + tfTel_2.getText() + tfTel_3.getText();
+			String strFax = tfFax_1.getText() + tfFax_2.getText() + tfFax_3.getText();
+			// 연락처와 팩스는 숫자로만 입력받아야 하기 때문에 확인
+			for (char c : strTel.toCharArray()) {
+				if (!Character.isDigit(c)) { // -true 연락처가 숫자가 아닐경우
+					JOptionPane.showMessageDialog(null, "연락처는 숫자로만 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+					return false;
+				} else { // 연락처가 숫자일 경우 팩스는 숫자인지 확인
+					for (char c2 : strFax.toCharArray()) {
+						if (!Character.isDigit(c2)) { // -true 팩스가 숫자가 아닐경우
+							JOptionPane.showMessageDialog(null, "팩스는 숫자로만 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+							return false;
+						}
+					}
+				}
+			}
 			return true;
 		}
 	}
@@ -185,7 +272,7 @@ public class RegiClient extends JFrame implements ActionListener {
 	/*
 	 * 입력 창 비워주기
 	 */
-	public void tfClear() {
+	public void Clear() {
 		tfCompany.setText("");
 		tfManager.setText("");
 		tfTel_1.setText("");
