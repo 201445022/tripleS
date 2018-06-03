@@ -1,7 +1,5 @@
 package db;
 
-import javax.swing.JTextField;
-
 public class Bean {
 	private String strCompany; // 상호명
 	private String strManager; // 담당자

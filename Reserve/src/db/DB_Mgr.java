@@ -2,6 +2,7 @@ package db;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * sql 쿼리문 작성
  * */
 public class DB_Mgr {
-	JDBC_Ex conn;
+	private JDBC_Ex conn;
 
 	public DB_Mgr() {
 		conn = new JDBC_Ex();
@@ -21,21 +22,32 @@ public class DB_Mgr {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "select Name, Manager, Phone, Fax, Email FROM account";
+		String sql = "SELECT * FROM Account";
 		try {
 			con = conn.getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				bean = new Bean();
-				bean.setStrCompany(rs.getString(1));
-				bean.setStrManager(rs.getString(2));
-				bean.setStrTel(rs.getString(3));
-				bean.setStrFax(rs.getString(4));
-				bean.setStrEmail(rs.getString(5));
+				bean.setStrCompany(rs.getString("company"));
+				bean.setStrManager(rs.getString("manager"));
+				bean.setStrTel(rs.getString("tel"));
+				bean.setStrFax(rs.getString("fax"));
+				bean.setStrEmail(rs.getString("email"));
 				list.add(bean);
 			}
 		} catch (Exception e) {
+		}finally {
+			try {
+				if(rs!=null)
+					rs.close();
+				if(stmt!=null)
+					stmt.close();
+				if(con!=null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return list;
 	}
@@ -57,6 +69,15 @@ public class DB_Mgr {
 			System.out.println("성공");
 		} catch (Exception e) {
 			System.out.println(e + " : 오류발생");
+		} finally {
+			try {
+				if(stmt!=null)
+					stmt.close();
+				if(con!=null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
