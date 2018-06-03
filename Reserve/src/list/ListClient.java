@@ -4,13 +4,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import db.Bean;
 import db.DB_Mgr;
 
 public class ListClient extends JFrame implements ActionListener{
 	
+	private JPanel p1;
+	private JLabel lblCompany, lblManager;
+	private JTable table;
+	private JTextField tfCompany, tfManager;
+	private JButton btnSearch, btnDelete;
+	private JScrollPane scroll;
+	private String[] col = {"No", "상호명", "담당자", "연락처",
+			"FAX", "E-MAIL"
+	};
 	
 	
 	public ListClient()
@@ -32,6 +47,38 @@ public class ListClient extends JFrame implements ActionListener{
 			System.out.println("이메일 : "+bean.getStrEmail());
 		}
 		////////////////////////////////
+		
+		// Panel Initialization
+		p1 = new JPanel();
+		
+		// Label Initialization
+		lblManager = new JLabel("담당자");
+		lblCompany = new JLabel("상호명");
+		
+		// Text Field Initialization
+		tfCompany = new JTextField();
+		tfManager = new JTextField();
+		
+		// Button Initialization
+		btnSearch = new JButton("검색");
+		btnDelete = new JButton("삭제");
+		
+		// Table and Scroll Initialization
+		table = new JTable(null, col);
+		scroll = new JScrollPane(table);
+		
+		// Adding components to panel
+		p1.add(lblCompany);
+		p1.add(tfCompany);
+		p1.add(lblManager);
+		p1.add(tfManager);
+		p1.add(btnSearch);
+		p1.add(btnDelete);
+		p1.add(table);
+		
+		// Adding panel to Frame
+		add(p1);
+		
 		setVisible(true);
 	}
 
