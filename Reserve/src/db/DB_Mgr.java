@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * sql 쿼리문 작성
  * */
 public class DB_Mgr {
-	private JDBC_Ex conn;
+	JDBC_Ex conn;
 
 	public DB_Mgr() {
 		conn = new JDBC_Ex();
@@ -36,7 +36,9 @@ public class DB_Mgr {
 				bean.setStrEmail(rs.getString("email"));
 				list.add(bean);
 			}
+			System.out.println("성공");
 		} catch (Exception e) {
+			System.out.println("데이터못받아옴");
 		}finally {
 			try {
 				if(rs!=null)
@@ -62,8 +64,8 @@ public class DB_Mgr {
 			con = conn.getConnection();
 			stmt = con.createStatement();
 
-			sql = "CREATE TABLE item ( " + "No NUMBER PRIMARY KEY," + "Num VARCHAR2(6)," + "Name VARCHAR2(10),"
-					+ "item_Size VARCHAR2(10)," + "UnitPrice NUMBER)";
+//			sql = "CREATE TABLE item ( " + "No NUMBER PRIMARY KEY," + "Num VARCHAR2(6)," + "Name VARCHAR2(10),"
+//					+ "item_Size VARCHAR2(10)," + "UnitPrice NUMBER)";
 
 			stmt.executeUpdate(sql);
 			System.out.println("성공");

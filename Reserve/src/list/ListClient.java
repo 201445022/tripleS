@@ -23,9 +23,7 @@ public class ListClient extends JFrame implements ActionListener{
 		Bean bean;
 		////////////////////////////// test 삭제해도됨
 		ArrayList<Bean> list = mgr.selectAccount();
-		System.out.println(list.size());
 		for(int i=0; i<list.size(); i++) {
-			System.out.println("select");
 			bean = list.get(i);
 			System.out.println("상호명 : "+bean.getStrCompany());
 			System.out.println("담당자 : "+bean.getStrManager());

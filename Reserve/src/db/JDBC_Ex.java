@@ -16,9 +16,6 @@ public class JDBC_Ex {
 			System.out.println("연결 중...");
 			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "temp","1234");
 			
-			Statement stmt = conn.createStatement();
-			String sql = "select * from TB";
-
 			System.out.println("DB연동 성공");
 		
 		} catch (ClassNotFoundException e) {
