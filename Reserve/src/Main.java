@@ -7,6 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import file.FileBill;
+import list.ListClient;
 import register.RegiClient;
 import register.RegiItem;
 import register.RegiOrder;
@@ -87,6 +88,7 @@ public class Main extends JFrame implements ActionListener {
          new FileBill();
 
       } else if (obj == l_client) {
+         new ListClient();
          
       } else if (obj == l_item) {
 
